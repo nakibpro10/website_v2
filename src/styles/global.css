@@ -24,7 +24,11 @@
             --bg-tertiary: #ebebf0;
             --bg-hover: #e2e2ea;
             --bg-active: #d8d8e4;
-            --bg-glass: rgba(255, 255, 255, 0.85);
+            --bg-glass: rgba(255, 255, 255, 0.72);
+            --bg-glass-solid: rgba(255, 255, 255, 0.92);
+            --glass-blur: blur(24px) saturate(180%);
+            --glass-border: rgba(255, 255, 255, 0.55);
+            --glass-shadow: 0 8px 32px rgba(14, 14, 20, 0.10), 0 1px 0 rgba(255,255,255,0.9) inset;
             
             --text-primary: #0e0e14;
             --text-secondary: #52526b;
@@ -81,7 +85,11 @@
             --bg-tertiary: #18181f;
             --bg-hover: #1e1e28;
             --bg-active: #242432;
-            --bg-glass: rgba(17, 17, 22, 0.92);
+            --bg-glass: rgba(17, 17, 22, 0.70);
+            --bg-glass-solid: rgba(17, 17, 22, 0.94);
+            --glass-blur: blur(24px) saturate(160%);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.40), 0 1px 0 rgba(255,255,255,0.05) inset;
             
             --text-primary: #e8e8f0;
             --text-secondary: #8888a8;
@@ -435,11 +443,13 @@
 
         /* ==================== CARDS ==================== */
         .card {
-            background: var(--bg-primary);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius-lg);
-            border: 1px solid var(--border-light);
-            -webkit-box-shadow: var(--card-shadow);
-            box-shadow: var(--card-shadow);
+            -webkit-box-shadow: var(--glass-shadow);
+            box-shadow: var(--glass-shadow);
             -webkit-transition: all var(--transition-normal);
             transition: all var(--transition-normal);
         }
@@ -482,10 +492,13 @@
         }
 
         .modal {
-            background: var(--bg-primary);
+            background: var(--bg-glass-solid);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius-xl);
-            -webkit-box-shadow: var(--modal-shadow);
-            box-shadow: var(--modal-shadow);
+            -webkit-box-shadow: var(--glass-shadow);
+            box-shadow: var(--glass-shadow);
             width: 100%;
             max-width: 500px;
             max-height: 90vh;
@@ -511,7 +524,7 @@
             -webkit-justify-content: space-between;
             justify-content: space-between;
             padding: 20px 24px;
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .modal-header h3 {
@@ -565,8 +578,8 @@
             justify-content: flex-end;
             gap: 12px;
             padding: 16px 24px;
-            border-top: 1px solid var(--border-light);
-            background: var(--bg-secondary);
+            border-top: 1px solid var(--glass-border);
+            background: transparent;
             -webkit-flex-wrap: wrap;
             flex-wrap: wrap;
         }
@@ -596,11 +609,14 @@
             align-items: center;
             gap: 12px;
             padding: 16px 24px;
-            background: var(--bg-primary);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
             color: var(--text-primary);
             border-radius: var(--radius-md);
-            -webkit-box-shadow: var(--modal-shadow);
-            box-shadow: var(--modal-shadow);
+            -webkit-box-shadow: var(--glass-shadow);
+            box-shadow: var(--glass-shadow);
             font-size: 14px;
             font-weight: 500;
             pointer-events: auto;
@@ -872,7 +888,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #5b5bd6 0%, #7c3aed 100%);
+            background: radial-gradient(ellipse at 30% 20%, #3b1fa8 0%, #0d0d1a 60%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -891,61 +907,86 @@
         .loading-content {
             text-align: center;
             color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 36px;
         }
 
+        /* Logo */
         .loading-logo {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            animation: pulse 2s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
         }
 
-        .loading-text h2 {
-            font-size: 2rem;
+        .loading-logo-icon {
+            width: 72px;
+            height: 72px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(91, 91, 214, 0.40), 0 1px 0 rgba(255,255,255,0.15) inset;
+        }
+
+        .loading-logo-text {
+            font-size: 26px;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+            color: white;
         }
 
-        .loading-text p {
-            font-size: 1rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-        }
-
+        /* iOS-style Activity Indicator */
         .loading-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ios-spinner {
             position: relative;
-            width: 80px;
-            height: 80px;
-            margin: 0 auto;
+            width: 40px;
+            height: 40px;
         }
 
-        .spinner-ring {
+        .ios-blade {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 4px solid transparent;
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 1.5s linear infinite;
+            left: 50%;
+            top: 50%;
+            width: 3px;
+            height: 10px;
+            margin-left: -1.5px;
+            margin-top: -9px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.9);
+            transform-origin: 1.5px 10px;
+            transform: rotate(calc(var(--blade-index) * 30deg));
+            animation: ios-fade 1.0s linear calc(var(--blade-index) * -0.0833s) infinite;
         }
 
-        .spinner-ring:nth-child(2) {
-            animation-delay: 0.15s;
-            opacity: 0.7;
+        @keyframes ios-fade {
+            0%   { opacity: 1; }
+            100% { opacity: 0.08; }
         }
 
-        .spinner-ring:nth-child(3) {
-            animation-delay: 0.3s;
-            opacity: 0.4;
+        /* Loading text */
+        .loading-text {
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.01em;
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            50% { transform: scale(1.06); opacity: 0.85; }
         }
 
         .auth-page {
@@ -1050,7 +1091,7 @@
             justify-content: center;
             align-items: center;
             padding: 40px;
-            background: var(--bg-primary);
+            background: var(--bg-secondary);
             position: relative;
             overflow-y: auto;
         }
@@ -1149,11 +1190,13 @@
 
         /* Auth Card */
         .auth-card {
-            background: var(--bg-primary);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius-xl);
             padding: 40px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--glass-shadow);
         }
 
         /* Auth Tabs */
@@ -1622,8 +1665,10 @@
         .sidebar {
             width: var(--sidebar-width);
             height: 100vh;
-            background: var(--bg-primary);
-            border-right: 1px solid var(--border-light);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
+            border-right: 1px solid var(--glass-border);
             display: flex;
             flex-direction: column;
             position: fixed;
@@ -1638,7 +1683,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--glass-border);
             min-height: var(--header-height);
         }
 
@@ -1823,8 +1868,8 @@
         /* Sidebar Footer - Storage Info */
         .sidebar-footer {
             padding: 20px;
-            border-top: 1px solid var(--border-light);
-            background: var(--bg-secondary);
+            border-top: 1px solid var(--glass-border);
+            background: transparent;
         }
 
         .storage-info {
@@ -1969,8 +2014,10 @@
         .header {
             height: var(--header-height);
             min-height: var(--header-height);
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-light);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
             padding: 0 24px;
@@ -2151,10 +2198,12 @@
             top: calc(100% + 12px);
             right: 24px;
             width: 320px;
-            background: var(--bg-primary);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
             border-radius: var(--radius-xl);
-            box-shadow: var(--modal-shadow);
-            border: 1px solid var(--border-light);
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
             display: none;
             z-index: 200;
             overflow: hidden;
@@ -2179,8 +2228,8 @@
         .user-dropdown-header {
             padding: 24px;
             text-align: center;
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-light);
+            background: transparent;
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .user-dropdown-avatar {
@@ -2701,9 +2750,11 @@
 
         /* ==================== FILE CARD - GRID VIEW ==================== */
         .file-card {
-            background: var(--bg-primary);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
             border-radius: var(--radius-lg);
-            border: 2px solid var(--border-light);
+            border: 1px solid var(--glass-border);
             padding: 20px;
             cursor: pointer;
             transition: all var(--transition-fast);
@@ -3048,10 +3099,12 @@
         /* ==================== CONTEXT MENU ==================== */
         .context-menu {
             position: fixed;
-            background: var(--bg-primary);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
             border-radius: var(--radius-lg);
-            box-shadow: var(--modal-shadow);
-            border: 1px solid var(--border-light);
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
             min-width: 220px;
             padding: 8px 0;
             z-index: 1000;
@@ -3123,10 +3176,12 @@
         /* ==================== NEW MENU (Upload Dropdown) ==================== */
         .new-menu {
             position: fixed;
-            background: var(--bg-primary);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
             border-radius: var(--radius-lg);
-            box-shadow: var(--modal-shadow);
-            border: 1px solid var(--border-light);
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
             min-width: 240px;
             padding: 8px 0;
             z-index: 1000;
@@ -3145,7 +3200,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--text-tertiary);
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .new-menu-item {
@@ -3309,10 +3364,12 @@
             bottom: 24px;
             right: 24px;
             width: 380px;
-            background: var(--bg-primary);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
             border-radius: var(--radius-xl);
-            box-shadow: var(--modal-shadow);
-            border: 1px solid var(--border-light);
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
             z-index: 500;
             display: none;
             overflow: hidden;
@@ -4403,13 +4460,16 @@
 
         .plan-selection-card {
             position: relative;
-            background: var(--bg-primary);
-            border: 2px solid var(--border-color);
+            background: var(--bg-glass);
+            -webkit-backdrop-filter: var(--glass-blur);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
             border-radius: var(--radius-lg);
             padding: 2rem;
             cursor: pointer;
             transition: all 0.3s ease;
             overflow: hidden;
+            box-shadow: var(--glass-shadow);
         }
 
         .plan-selection-card::before {
@@ -5446,9 +5506,9 @@
 
         .settings-profile-section {
             padding: 32px;
-            background: var(--bg-secondary);
+            background: transparent;
             text-align: center;
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .settings-avatar-wrapper {
