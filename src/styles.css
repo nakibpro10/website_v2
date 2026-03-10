@@ -1,0 +1,373 @@
+/* ==========================================================================
+   Phase 1 — Global Setup, Loader & Hero
+   Inter font · Dark glassmorphism theme · Apple-style loader · Hero section
+   ========================================================================== */
+
+/* Inter font is loaded via <link> in index.html to avoid render-blocking @import */
+
+/* ── CSS Custom Properties ── */
+:root {
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Dark palette */
+  --hero-bg: #09090f;
+  --hero-bg-secondary: #111118;
+  --hero-surface: rgba(255, 255, 255, 0.04);
+  --hero-glass: rgba(255, 255, 255, 0.06);
+  --hero-glass-border: rgba(255, 255, 255, 0.08);
+  --hero-text: #f0f0f5;
+  --hero-text-secondary: #9898b0;
+  --hero-accent: #6c63ff;
+  --hero-accent-hover: #7e76ff;
+  --hero-accent-glow: rgba(108, 99, 255, 0.35);
+  --hero-transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Landing page body (shared by loader + hero) ── */
+.landing-body {
+  font-family: var(--font-main);
+  background: var(--hero-bg);
+  color: var(--hero-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   LOADER — Apple-style full-screen spinner
+   ========================================================================== */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hero-bg);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  will-change: opacity;
+}
+
+.loader-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Spinner ring */
+.loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  border-top-color: var(--hero-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  transform: translateZ(0); /* GPU layer */
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg) translateZ(0);
+  }
+}
+
+/* ==========================================================================
+   DECORATIVE GLOWING ORBS
+   ========================================================================== */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.45;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.orb--purple {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(108, 99, 255, 0.5) 0%, transparent 70%);
+  top: -10%;
+  left: -8%;
+  animation: orbFloat 14s ease-in-out infinite alternate;
+}
+
+.orb--blue {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(56, 152, 255, 0.4) 0%, transparent 70%);
+  bottom: -5%;
+  right: -6%;
+  animation: orbFloat 18s ease-in-out infinite alternate-reverse;
+}
+
+.orb--pink {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(232, 121, 249, 0.35) 0%, transparent 70%);
+  top: 40%;
+  right: 20%;
+  animation: orbFloat 12s ease-in-out infinite alternate;
+}
+
+@keyframes orbFloat {
+  0% {
+    transform: translate(0, 0) translateZ(0);
+  }
+  100% {
+    transform: translate(30px, -20px) translateZ(0);
+  }
+}
+
+/* ==========================================================================
+   GLASSMORPHIC NAV BAR
+   ========================================================================== */
+.hero-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  height: 64px;
+  background: rgba(9, 9, 15, 0.6);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border-bottom: 1px solid var(--hero-glass-border);
+}
+
+.hero-nav__logo {
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: var(--hero-text);
+  text-decoration: none;
+}
+
+.hero-nav__links {
+  display: flex;
+  gap: 1.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-nav__link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--hero-text-secondary);
+  text-decoration: none;
+  transition: color var(--hero-transition);
+}
+
+.hero-nav__link:hover,
+.hero-nav__link:focus-visible {
+  color: var(--hero-text);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 6rem 1.25rem 4rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--hero-accent);
+  background: rgba(108, 99, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.2);
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+}
+
+.hero__title {
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #ffffff 30%, #9898b0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero__subtitle {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-weight: 400;
+  color: var(--hero-text-secondary);
+  line-height: 1.6;
+  max-width: 540px;
+}
+
+/* ── CTA Buttons ── */
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.75rem;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform var(--hero-transition), box-shadow var(--hero-transition),
+    background var(--hero-transition);
+  will-change: transform;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+  transform: scale(0.97) translateZ(0);
+}
+
+/* Primary CTA */
+.btn--primary {
+  color: #fff;
+  background: var(--hero-accent);
+  box-shadow: 0 4px 20px var(--hero-accent-glow);
+}
+
+.btn--primary:hover {
+  background: var(--hero-accent-hover);
+  box-shadow: 0 6px 32px var(--hero-accent-glow);
+  transform: translateY(-1px) translateZ(0);
+}
+
+/* Secondary CTA — glass */
+.btn--secondary {
+  color: var(--hero-text);
+  background: var(--hero-glass);
+  border: 1px solid var(--hero-glass-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px) translateZ(0);
+}
+
+/* ── Accessible focus ring ── */
+.btn:focus-visible,
+.hero-nav__link:focus-visible {
+  outline: 2px solid var(--hero-accent);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   GLASSMORPHIC FEATURE CARD (optional decorative row below hero)
+   ========================================================================== */
+.hero__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 720px;
+  margin-top: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.glass-card {
+  padding: 1.5rem;
+  background: var(--hero-glass);
+  border: 1px solid var(--hero-glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform var(--hero-transition), border-color var(--hero-transition);
+  will-change: transform;
+}
+
+.glass-card:hover {
+  transform: translateY(-3px) translateZ(0);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.glass-card__icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.glass-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.glass-card__desc {
+  font-size: 0.82rem;
+  color: var(--hero-text-secondary);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   RESPONSIVE — Mobile-first breakpoints
+   ========================================================================== */
+
+/* Hide nav links on very small screens */
+@media (max-width: 599px) {
+  .hero-nav__links {
+    display: none;
+  }
+}
+
+/* Tablet */
+@media (min-width: 600px) {
+  .hero {
+    padding: 8rem 2rem 5rem;
+  }
+
+  .hero__cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .hero {
+    padding: 10rem 2rem 6rem;
+  }
+
+  .hero__title {
+    font-size: 4.25rem;
+  }
+}
