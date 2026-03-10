@@ -1,26 +1,39 @@
-/* ==========================================================================
-   Phase 1 — Loader controller (vanilla JS)
-   Fades out the full-screen loader once the page content is ready.
-   ========================================================================== */
+/* ═══════════════════════════════════════════════════════════════════════════
+   Nakib Cloud — Phase 1 loader + reveal (vanilla JS)
+   Hides the loader, then reveals the landing page with staggered fade-ins.
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-(function initLoader() {
+(function () {
   'use strict';
 
-  var loader = document.getElementById('loader');
-  if (!loader) return;
+  var loader  = document.getElementById('loader');
+  var landing = document.getElementById('landing');
 
-  function hideLoader() {
-    loader.classList.add('hidden');
+  if (!loader || !landing) return;
+
+  function reveal() {
+    /* 1. Fade out loader */
+    loader.classList.add('is-hidden');
+
+    /* 2. Show the landing wrapper */
+    landing.setAttribute('aria-hidden', 'false');
+    landing.classList.add('is-visible');
+
+    /* 3. Stagger each .fade-target into view */
+    var targets = landing.querySelectorAll('.fade-target');
+    targets.forEach(function (el, i) {
+      setTimeout(function () {
+        el.classList.add('is-visible');
+      }, 120 * i);
+    });
   }
 
-  // Hide once the window has fully loaded (images, fonts, etc.)
+  /* Wait for full load (fonts, images) then reveal */
   if (document.readyState === 'complete') {
-    // Already loaded (e.g. cached)
-    hideLoader();
+    reveal();
   } else {
     window.addEventListener('load', function onLoad() {
-      // Small delay to let paint finish and ensure smooth transition
-      setTimeout(hideLoader, 300);
+      setTimeout(reveal, 250);            /* slight pause for smoothness */
       window.removeEventListener('load', onLoad);
     });
   }

@@ -9,68 +9,91 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Nakib Cloud</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
-  <body class="landing-body">
+  <body>
 
-    <!-- ── Apple-style Loader ── -->
-    <div id="loader" class="loader-overlay" aria-label="Loading">
-      <div class="loader-spinner"></div>
+    <!-- ═══ Loading Screen ═══ -->
+    <div id="loader" class="loader" aria-live="polite" aria-label="Loading">
+      <div class="loader__ring" aria-hidden="true">
+        <svg viewBox="0 0 50 50">
+          <circle cx="25" cy="25" r="20"></circle>
+        </svg>
+      </div>
     </div>
 
-    <!-- ── Glassmorphic Navigation ── -->
-    <nav class="hero-nav" aria-label="Main navigation">
-      <a href="/" class="hero-nav__logo">Nakib Cloud</a>
-      <ul class="hero-nav__links">
-        <li><a href="#features" class="hero-nav__link">Features</a></li>
-        <li><a href="#pricing" class="hero-nav__link">Pricing</a></li>
-        <li><a href="#about" class="hero-nav__link">About</a></li>
-      </ul>
-    </nav>
+    <!-- ═══ Landing Page Wrapper ═══ -->
+    <div id="landing" class="landing" aria-hidden="true">
 
-    <!-- ── Hero Section ── -->
-    <section class="hero">
-      <!-- Decorative orbs -->
-      <div class="orb orb--purple" aria-hidden="true"></div>
-      <div class="orb orb--blue" aria-hidden="true"></div>
-      <div class="orb orb--pink" aria-hidden="true"></div>
-
-      <div class="hero__content">
-        <span class="hero__badge">✨ Now in v2</span>
-        <h1 class="hero__title">Your files, beautifully&nbsp;secure.</h1>
-        <p class="hero__subtitle">
-          Lightning-fast cloud storage with end-to-end privacy.
-          Simple, elegant, and built for the&nbsp;future.
-        </p>
-
-        <div class="hero__ctas">
-          <button class="btn btn--primary" type="button">Get Started</button>
-          <button class="btn btn--secondary" type="button">Learn More</button>
-        </div>
+      <!-- Ambient Background -->
+      <div class="ambient" aria-hidden="true">
+        <div class="ambient__orb ambient__orb--1"></div>
+        <div class="ambient__orb ambient__orb--2"></div>
+        <div class="ambient__orb ambient__orb--3"></div>
       </div>
 
-      <!-- Glassmorphic feature cards -->
-      <div class="hero__cards" id="features">
-        <div class="glass-card">
-          <div class="glass-card__icon" aria-hidden="true">🔒</div>
-          <div class="glass-card__title">Private by Default</div>
-          <p class="glass-card__desc">Your data stays yours. Always encrypted, never&nbsp;shared.</p>
-        </div>
-        <div class="glass-card">
-          <div class="glass-card__icon" aria-hidden="true">⚡</div>
-          <div class="glass-card__title">Blazing Fast</div>
-          <p class="glass-card__desc">Optimized transfers so you never wait&nbsp;around.</p>
-        </div>
-        <div class="glass-card">
-          <div class="glass-card__icon" aria-hidden="true">🎨</div>
-          <div class="glass-card__title">Beautiful UI</div>
-          <p class="glass-card__desc">A premium experience across every&nbsp;device.</p>
-        </div>
-      </div>
-    </section>
+      <!-- Navigation -->
+      <header class="nav-wrap">
+        <nav class="nav" aria-label="Main navigation">
+          <a href="/" class="nav__brand" aria-label="Nakib Cloud home">
+            <svg class="nav__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            <span>Nakib Cloud</span>
+          </a>
+          <ul class="nav__links">
+            <li><a href="#features" class="nav__link">Features</a></li>
+            <li><a href="#about" class="nav__link">About</a></li>
+          </ul>
+          <a href="#get-started" class="nav__cta">Get Started</a>
+        </nav>
+      </header>
 
-    <!-- ── React App Root ── -->
+      <!-- Hero -->
+      <main>
+        <section class="hero" id="get-started">
+          <div class="hero__inner">
+            <p class="hero__eyebrow fade-target">Cloud Storage — Reimagined</p>
+            <h1 class="hero__title fade-target">
+              Your files.<br />Beautifully secure.
+            </h1>
+            <p class="hero__subtitle fade-target">
+              Fast, private, and effortlessly elegant cloud storage
+              designed for people who value simplicity.
+            </p>
+            <div class="hero__actions fade-target">
+              <button class="lp-btn lp-btn--primary" type="button">
+                Start for Free
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+              <button class="lp-btn lp-btn--ghost" type="button">Learn More</button>
+            </div>
+          </div>
+
+          <!-- Glassmorphic Feature Cards -->
+          <div class="lp-cards fade-target" id="features">
+            <article class="lp-card">
+              <div class="lp-card__icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <h3 class="lp-card__title">End-to-End Encrypted</h3>
+              <p class="lp-card__text">Your data is encrypted at rest and in transit. Only you hold the keys.</p>
+            </article>
+            <article class="lp-card">
+              <div class="lp-card__icon"><i class="fa-solid fa-bolt"></i></div>
+              <h3 class="lp-card__title">Blazing Fast</h3>
+              <p class="lp-card__text">Optimized global CDN ensures lightning-speed uploads and downloads.</p>
+            </article>
+            <article class="lp-card">
+              <div class="lp-card__icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+              <h3 class="lp-card__title">Beautiful Experience</h3>
+              <p class="lp-card__text">A premium, intuitive interface that feels native on every device.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ═══ React App Root ═══ -->
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script type="module" src="/src/main.js"></script>
