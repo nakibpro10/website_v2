@@ -6,6 +6,9 @@
 (function () {
   'use strict';
 
+  var REVEAL_DELAY_MS  = 250;   /* pause after load before reveal */
+  var STAGGER_STEP_MS  = 120;   /* delay between each fade-target */
+
   var loader  = document.getElementById('loader');
   var landing = document.getElementById('landing');
 
@@ -24,7 +27,7 @@
     targets.forEach(function (el, i) {
       setTimeout(function () {
         el.classList.add('is-visible');
-      }, 120 * i);
+      }, STAGGER_STEP_MS * i);
     });
   }
 
@@ -33,7 +36,7 @@
     reveal();
   } else {
     window.addEventListener('load', function onLoad() {
-      setTimeout(reveal, 250);            /* slight pause for smoothness */
+      setTimeout(reveal, REVEAL_DELAY_MS);
       window.removeEventListener('load', onLoad);
     });
   }

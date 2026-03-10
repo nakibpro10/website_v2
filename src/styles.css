@@ -23,6 +23,9 @@
   --lp-accent-hi: #9183ff;
   --lp-accent-bg: rgba(124, 106, 255, 0.12);
   --lp-accent-glow: rgba(124, 106, 255, 0.30);
+  --lp-accent-border: rgba(124, 106, 255, 0.15);
+  --lp-accent-bg-hover: rgba(124, 106, 255, 0.18);
+  --lp-accent-border-hover: rgba(124, 106, 255, 0.3);
 
   --lp-ease:      cubic-bezier(0.4, 0, 0.2, 1);
   --lp-ease-out:  cubic-bezier(0, 0, 0.2, 1);
@@ -233,14 +236,14 @@ html body {
   padding: 6px 14px;
   border-radius: 8px;
   background: var(--lp-accent-bg);
-  border: 1px solid rgba(124, 106, 255, 0.15);
+  border: 1px solid var(--lp-accent-border);
   transition: background var(--lp-dur) var(--lp-ease), border-color var(--lp-dur) var(--lp-ease);
 }
 
 .nav__cta:hover,
 .nav__cta:focus-visible {
-  background: rgba(124, 106, 255, 0.18);
-  border-color: rgba(124, 106, 255, 0.3);
+  background: var(--lp-accent-bg-hover);
+  border-color: var(--lp-accent-border-hover);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
